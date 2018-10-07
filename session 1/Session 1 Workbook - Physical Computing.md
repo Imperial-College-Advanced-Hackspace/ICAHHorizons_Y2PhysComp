@@ -104,9 +104,10 @@ Download PuTTy, an SSH and telnet client [here](https://www.chiark.greenend.org.
 
 On the left hand bar select Session and fill in the details as follows: 
 
-```Hostname (or ip address): 192.168.4.1
+```
+Hostname (or ip address):192.168.4.1
 Port:22
-Connection Type: SSH```
+Connection Type:SSH```
 
 You can even save this configuration so you can pull it up next time instead of typing it all out again. Now click ```Open``` and you should be met with a black terminal screen and you may get a popup asking if you are sure to connect. Click Yes. On the black terminal screen you will get a prompt for the login details:
 
