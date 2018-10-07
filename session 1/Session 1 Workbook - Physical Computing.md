@@ -39,7 +39,7 @@ But how about (a) writing, and (b) executing Python programs on the Rasberry Pi?
 
 For writing programs, we suggest using **Geany**, which is one of the pre-installed code editors on your Raspberry Pi. It has the handy feature that it highlights (i.e., colour-annotates) our programs as we write them, which helps a lot with their readability.
 
-You find Geany in the Programming menue, as shown in the following picture.
+You find Geany in the Programming menu, as shown in the following picture.
 
 <p align="center">
     <img src="images/Geany_menu_item.png" alt="Geany menue item" width="800">
@@ -75,11 +75,7 @@ Hint: You can use tab completion. For example, when typing ```cd```+<kbd>Tab</kb
 
 Long story short - the Terminal is much like a text-based file explorer, bolted together with a powerful general "command centre" for your computer. You can also start the usual programs from within the terminal. Just type ```chromium```+<kbd>Enter</kbd>.
 
-# Recap of the Introductory Session
-
-First off, are there any questions from the last session or the homework?
-
-## Basic Python: Variables, Operators, Data Types
+# Basic Python: Variables, Operators, Data Types
 
 Programming languages hold data in variables. Just like in maths, variables in Python are a convenient way to refer to a quantity through a memorable name.
 
