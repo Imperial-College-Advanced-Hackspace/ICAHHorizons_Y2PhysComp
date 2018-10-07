@@ -33,7 +33,7 @@ However, what will make it interesting for us is its capability for use in elect
     <figcaption align="center">The Raspberry Pi (version 3)</figcaption>
 </p>
 
-## The tools of the trade - the Linux terminal and a code editor
+## The tools of the trade - the Linux terminal, a code editor and SSH
 
 But how about (a) writing, and (b) executing Python programs on the Rasberry Pi?
 
@@ -52,6 +52,8 @@ The user interface is rather self-explanatory, with commands like CTRL+S (save),
     <img src="images/Geany_window.png" alt="Geany window" width="800">
     <figcaption align="center">The Geany user interface</figcaption>
 </p>
+
+Alternatively you can create the programs on your own laptop and copy them over to the raspberry pi over SSH (Secure Socket Shell). For our sessions we will use repl.it which is an online IDE that can interpret and compile your code. Using this we do not have to worry about what operating system we are on and installing any new software. Simply write the code online, download it and copy it across as shown below.
 
 But how to actually run the program, so the computer can do what we ask it to do? That's where the Linux terminal comes in handy. Look again at the main menu bar in the Figure above. The terminal is the black symbol with <kbd>**>\_**</kbd> in it, at the top of the screen. Once you've clicked on it, the below window appears.
 
@@ -74,6 +76,50 @@ We will show you how you can run a program from within the Terminal. The most im
 Hint: You can use tab completion. For example, when typing ```cd```+<kbd>Tab</kbd>, the Terminal automatically lists all possible folders that are available for changing into.
 
 Long story short - the Terminal is much like a text-based file explorer, bolted together with a powerful general "command centre" for your computer. You can also start the usual programs from within the terminal. Just type ```chromium```+<kbd>Enter</kbd>.
+
+## SSH: Secure Socket Shell
+
+Raspberry Pis are great for electronics projects - they're quick and easy to use and can be set up to work headless i.e. they can work without a screen. Although this is a little more difficult to work with it makes it great when we want to update code on the Raspberry Pi while it is buried in the middle of our projects. To access our pi without a screen we can use SSH, which forms a secure connection between your device and the pi and provides you access to the command line on the Raspberry Pi.
+
+Normally you can connect to a pi over SSH that is on the same network, for example at home if your pi is connected to your wifi and so is your laptop, you can connect to it over SSH by simply typing ssh pi@PI_IP_ADDRESS in a terminal (Linux/Mac) or using a program like PuTTy (windows).
+
+In our case there are some further difficulties as we do not know the IP address of the pi on the Imperial-WPA network hence we are using the Raspberry Pi as a Wireless Access Point (WAP). This allows us to connect directly to the raspberry pi like we connect to a wifi network. Each of you will be given a pi with a number on top, dictating the wifi SSID to connect to.
+
+Now connect up the 5V power adapter to the pi and turn it on. A red light should come on and a flashing green light. After roughly 20 seconds the Raspberry pi will have completed booting. Now see on your laptops wifi connection - has the raspberry pi SSID shown up? For example for the Raspberry Pi labelled 01 there should be a wifi connection called ```H2Pi01``` that you can connect to. Try connecting to this connection. The password is ```Horizons2```.
+
+If you can connect to it you should be able to also SSH into the raspberry pi now. Try the following instructions:
+
+### Linux/Mac:
+
+Open a terminal and type in ```SSH pi@192.168.4.1```. If it asks you if you want to continue connecting then please type ```yes```+<kbd>Enter</kbd>. If it asks you for a password then try the default rapsberry pi password ```raspberry```.
+
+### Windows:
+
+Download PuTTy, an SSH and telnet client [here](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html). After you have downloaded and installed PuTTy, try running it and you should be met with a screen as below:
+
+<p align="center">
+    <img src="images/PuTTy.png" alt="PuTTy: an SSH and telnet client" width="600">
+    <figcaption align="center">PuTTy: an SSH and telnet client</figcaption>
+</p>
+
+On the left hand bar select Session and fill in the details as follows: 
+
+```Hostname (or ip address): 192.168.4.1
+Port:22
+Connection Type: SSH```
+
+You can even save this configuration so you can pull it up next time instead of typing it all out again. Now click ```Open``` and you should be met with a black terminal screen and you may get a popup asking if you are sure to connect. Click Yes. On the black terminal screen you will get a prompt for the login details:
+
+```login as: pi
+password: raspberry```
+
+If all goes well you should be met with the screen below:
+
+<p align="center">
+    <img src="images/successful_SSH.png" alt="Successfully SSH raspberry pi" width="600">
+    <figcaption align="center">Successfully SSH raspberry pi</figcaption>
+</p>
+
 
 # Basic Python: Variables, Operators, Data Types
 
