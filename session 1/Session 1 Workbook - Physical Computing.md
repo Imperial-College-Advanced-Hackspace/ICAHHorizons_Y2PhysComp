@@ -120,7 +120,7 @@ password: raspberry
 If all goes well you should be met with the screen below:
 
 <p align="center">
-    <img src="images/successful_SSH.png" alt="Successfully SSH raspberry pi" width="600">
+    <img src="images/successful_connection.png" alt="Successfully SSH raspberry pi" width="600">
     <figcaption align="center">Successfully SSH raspberry pi</figcaption>
 </p>
 
