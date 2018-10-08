@@ -13,6 +13,6 @@ Session 2: More sensors
 Session 3: The Challenge...
 
 <p align="center">
-    <img src="images/intro_header.PNG" alt="Python" width="400">
+    <img src="images/intro_header.PNG" alt="Python">
     <figcaption align="center">Python</figcaption>
 </p>
