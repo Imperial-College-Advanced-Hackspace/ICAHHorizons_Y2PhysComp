@@ -12,15 +12,7 @@ Session 2: More sensors
 
 Session 3: The Challenge...
 
-<p>
-    <img src="images/python_logo.png" alt="Python" width="30%">
+<p align="center">
+    <img src="images/intro_header.PNG" alt="Python" width="400">
     <figcaption align="center">Python</figcaption>
-</p>
-<p>
-    <img src="images/raspberrypi.jpg" alt="Raspberry Pi" width="30%">
-    <figcaption align="center">Raspberry Pi</figcaption>
-</p>
-<p>
-    <img src="images/101.jpg" alt="Two wheeled robot" width="30%">
-    <figcaption align="center">Two wheeled robot</figcaption>
 </p>
