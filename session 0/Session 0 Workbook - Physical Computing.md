@@ -17,10 +17,10 @@ Session 3: The Challenge...
     <figcaption align="center">Python</figcaption>
 </p>
 <p>
-    <img src="images/raspberrypi.jpg" alt="Python" width="30%">
+    <img src="images/raspberrypi.jpg" alt="Raspberry Pi" width="30%">
     <figcaption align="center">Raspberry Pi</figcaption>
 </p>
 <p>
-    <img src="images/101.jpg" alt="Python" width="30%">
+    <img src="images/101.jpg" alt="Two wheeled robot" width="30%">
     <figcaption align="center">Two wheeled robot</figcaption>
 </p>
