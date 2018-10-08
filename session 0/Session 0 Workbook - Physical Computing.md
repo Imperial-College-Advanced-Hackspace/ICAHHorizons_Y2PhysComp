@@ -1,9 +1,5 @@
 # Session 0 Workbook - Physical Computing
 
-<p align="center">
-    <img src="images/ICAHLOGO.png" alt="ICAHLOGO" width="300">
-</p>
-
 # Welcome!
 
 Welcome to the Physical Computing theme of the 2nd Year Hackspace Horizons Course. There will be 3 sessions for this theme which will be as follows:
