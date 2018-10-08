@@ -4,7 +4,6 @@
 
 <p align="center">
     <img src="images/intro_header.PNG" alt="Python">
-    <figcaption align="center">Python</figcaption>
 </p>
 
 ## Course Structure
