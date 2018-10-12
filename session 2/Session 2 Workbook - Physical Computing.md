@@ -6,11 +6,139 @@
 
 # How to use this workbook & teams formation
 
-Welcome back to the third session of the Physical Computing theme!
+Welcome back to the second session of the Physical Computing theme!
 
-This week, the focus moves firmly to working in teams of 3 to 4 and doing exercises in your workbook together. All exercises happen on the actual Raspberry Pis, so unless you have the means to connect the Pis up to a screen, keyboard and mouse at home, there won't be any homework.
+This week, the focus moves firmly to working in teams of 3 to 4 and doing exercises in your workbook together. All exercises happen on the actual Raspberry Pis.
 
 Having formed teams, let's jump right in at the deep end!
+
+# Physical Computing and the gpiozero library
+
+Ultimately, we want you to control a physical contraption with your Raspberry Pi. For this, we'll use the General Purpose Input/Output (GPIO) pins on the side of your Pi. Their layout is shown below. Don't worry too much about it all for now, we will show you how to connect things up. Just one thing to remember: **Never connect a 5V pin directly to any other pin of the Raspberry Pi, particularly the Ground pin!**
+
+<p align="center">
+    <img src="images/RPi_pin_layout.svg" alt="pin" width="200">
+    <figcaption align="center">Raspberry Pi pin layout</figcaption>
+</p>
+
+## Working with libraries
+
+You've seen the `import` statement in the last session, where we used `import numpy as np` and later `np.pi` to access the value of the mathematical constant &pi;.
+
+The whole point is to avoid "re-inventing the wheel" by using existing software inside our programs. We do this by importing **software libraries**.
+
+Here's an example for how powerful this idea is. Imagine you want to retrieve the raw HTML content from a website. Instead of manually coding everything up from scratch, we can do the following:
+
+```python
+import requests
+r = requests.get('http://example.com') # Using everyone's favourite test domain!
+print(r.content)
+```
+
+A whopping 3 lines of code to traverse the network stack, perform a HTTP GET request, await a response, save it in a variable called `r` and display it!
+
+Things contained in libraries can be retrieved by using the dot operator `.`, such as in `requests.get`.
+
+## Using the gpiozero library
+
+The gpiozero library enables us to control the GPIO pins on our Pi. We start off with `import gpiozero`.
+
+### Switching an LED
+
+Connect an LED via a resistor to the Ground (GND) and GPIO pin 17 (GP17). Note that the shorter wire of the LED needs to connect to ground.
+
+<p align="center">
+    <img src="images/gpiozero_led.png" alt="Connecting an LED" width="800">
+    <figcaption align="center">Connecting an LED to the Pi</figcaption>
+</p>
+
+Run:
+
+```python
+import gpiozero
+import time
+
+red = gpiozero.LED(17)
+
+while True:
+    red.on()
+    time.sleep(1)
+    red.off()
+    time.sleep(1)
+```
+
+Note how we also imported the `time` library to allow the program to sleep for one second.
+
+### Dimming an LED
+
+Keep the same connection, and run the below code. Note how we use the PWMLED object to control the LED. PWM stands for [**P**ulse **W**idth **M**odulation](https://www.arduino.cc/en/Tutorial/PWM), which rapidly blinks the LED and controls its brightness by switching it on and off for different amounts of times.
+
+```python
+from gpiozero import PWMLED
+from time import sleep
+
+led = PWMLED(17)
+
+while True:
+    led.value = 0  # off
+    sleep(1)
+    led.value = 0.5  # half brightness
+    sleep(1)
+    led.value = 1  # full brightness
+    sleep(1)
+```
+
+Note how in this case we have used the syntax `from <library> import <thing>` to import the `PWMLED` and `sleep` functions directly. This allowed us to skip repeatedly writing `time.sleep()` etc.
+
+### Using an ultrasonic distance sensor
+
+We couldn't get gpiozero's own `DistanceSensor` to give us any sensible distances! So we wrote a small library that you can use instead. Download the [ICAHSensor](https://raw.githubusercontent.com/till-h/ICAHHorizons_Y2PhysComp/master/session%201/ICAHSensor.py) and save it wherever you run the below program. It provides an `ICAHSensor` object.
+
+Wire the sensor as shown below. For this we need a breadboard, because the sensor's "Echo" returns a 5V signal, which is too much for the Pi's GPIO pins. To solve this, we have to build a small [voltage divider](https://en.wikipedia.org/wiki/Voltage_divider) to bring the signal from 5V down to 3.3V.
+
+<p align="center">
+    <img src="images/gpiozero_distance_sensor.png" alt="Connecting an ultrasonic distance sensor" width="800">
+    <figcaption align="center">Connecting a distance sensor to the Pi</figcaption>
+</p>
+
+Then execute the following code.
+
+```python
+from ICAHSensor import ICAHSensor
+from time import sleep
+
+sensor = ICAHSensor(trig=4, echo=18)
+
+while True:
+    print('Distance to nearest object is', sensor.get_distance(), 'm')
+    sleep(0.5)
+```
+
+You can stop the program by pressing <kbd>CTRL</kbd>+<kbd>C</kbd>.
+
+You can find many more ways of using gpiozero [here](http://gpiozero.readthedocs.io/en/stable/recipes.html).
+
+## Exercises
+
+Feel free to team up for these challenges. We only have a limited amount of each sensor.
+
+1. Write a program that flashes an LED at a frequency set by the user.
+
+1. Using gpiozero's [PWMLED object](http://gpiozero.readthedocs.io/en/stable/recipes.html#led-with-variable-brightness), write a program that repeatedly dims the LED from zero to full brightness, abruptly re-sets it to zero brightness and repeats. This is called a sawtooth wave.
+
+    <p align="center">
+        <img src="images/Sawtooth.gif" alt="pin" width="300">
+        <figcaption align="center">A sawtooth wave</figcaption>
+    </p>
+
+1. Write a program that blinks an LED if it detects an object closer than 20cm from the distance sensor.
+
+1. Write a program that accepts user input like "HELLOCANYOUHEARME" (all upper case and no whitespace), and translates this into an LED flashing the corresponding Morse Code.
+
+   You will need to translate letters into dots and dashes according to the Morse alphabet. It is best to use a Python dictionary to translate between letters and Morse symbols. This can be found [here](https://raw.githubusercontent.com/raspberrypilearning/morse-code-virtual-radio/master/code/morse_lookup.py), and the timing rules for International Morse Code [here](https://github.com/raspberrypilearning/morse-code-virtual-radio/blob/master/worksheet.md#decode-the-morse-as-you-go).
+
+1. Write a program that makes use of a line sensor (we have a few here today, so you will need to team up, depending on who is at this stage) and notifies the user whenever a black line is detected. Try to avoid repeatedly printing out whatever the line sensor sees. Instead, only notify the user when there is a change (no line &#8646; line). You will want to [wire it up correctly and familiarise yourself with the LineSensor interface](http://gpiozero.readthedocs.io/en/stable/api_input.html#line-sensor-trct5000) in gpiozero.
+
 
 # May we introduce...
 

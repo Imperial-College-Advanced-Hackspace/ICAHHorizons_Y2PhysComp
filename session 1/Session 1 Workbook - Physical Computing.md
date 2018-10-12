@@ -125,6 +125,12 @@ If all goes well you should be met with the screen below:
 </p>
 
 
+# Homework
+
+In this lesson we have looked at what is the Raspberry Pi and how to connect to it. Next lesson we will be looking at writing Python code and then running it on the Raspberry Pi. For homework you should go through the remaining sections below learning about Python and trying out the examples as shown. Some of you may already have Python installed on your laptops so feel free to use this if you wish. Please make sure you use Python 3 and not Python 2.7. If you do not then you can use an online compiler at [repl.it](www.repl.it). Select Python from the dropdown box.
+
+In Repl.it there are three main sections to the screen, on the left you have the file explorer, in the middle you have your text editor, and on the right you have the interactive python terminal where you can also write python code. For your homework go through the sections below trying out all the examples as well. Get an understanding of how Python works and try experimenting. Finally complete the mandatory exercises as best as you can. If you struggle then feel free to ask a staff member and give an understanding of what you are trying to do and why.
+
 # Basic Python: Variables, Operators, Data Types
 
 Programming languages hold data in variables. Just like in maths, variables in Python are a convenient way to refer to a quantity through a memorable name.
@@ -156,7 +162,7 @@ We can perform mathematical calculations in Python using the basic operators `+`
 4 - 3
 2 * 3
 3 / 4
-2 ** 3
+2 ** 3 # Returns 2 to the power of 3
 10 % 7 # Returns the remainder of a division
 ```
 
@@ -222,19 +228,19 @@ The values stored in a list can be accessed using the slice operator (`[]` and `
 The plus sign is the list concatenation operator, and the asterisk (`*`) is the repetition operator.
 
 ```python
-list = [ 'abc', 12 , 2.23, 'john', 70.2 ]
+examplelist = [ 'abc', 12 , 2.23, 'john', 70.2 ]
 tinylist = [123, 'john']
 
 my_name = "John Doe"
 my_job = "technician"
 
-print(list)            # Prints complete list
-print(list[0])         # Prints first element of the list
-print(list[1:3])       # Prints elements starting from 2nd till 3rd
-print(list[2:])        # Prints elements starting from 3rd element
-print(list[-1])        # Negative indexing: Prints the last element of the list
+print(examplelist)            # Prints complete list
+print(examplelist[0])         # Prints first element of the list
+print(examplelist[1:3])       # Prints elements starting from 2nd till 3rd
+print(examplelist[2:])        # Prints elements starting from 3rd element
+print(examplelist[-1])        # Negative indexing: Prints the last element of the list
 print(tinylist * 2)    # Prints list two times
-print(list + tinylist) # Prints concatenated lists
+print(examplelist + tinylist) # Prints concatenated lists
 
 print(my_name[0])      # Strings behave very similarly to lists
 print(my_name + my_job)# String concatenation
@@ -399,136 +405,3 @@ Following on from the Introductory Session and your homework, can you solve the 
 1. Can you program Eratosthenes' sieve? Additional difficulty: Create a program that gives all prime numbers between a lower and an upper number, for example to find all primes between 10,000 and 11,000? [More information here](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
 
 1. (You got as far as this? Ok, fair dos. Start work on an implementation of [Dijkstra's algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm). You will have to decide on a data structure to hold a graph, amongst many other considerations.)
-
-# Physical Computing and the gpiozero library
-
-Ultimately, we want you to control a physical contraption with your Raspberry Pi. For this, we'll use the General Purpose Input/Output (GPIO) pins on the side of your Pi. Their layout is shown below. Don't worry too much about it all for now, we will show you how to connect things up. Just one thing to remember: **Never connect a 5V pin directly to any other pin of the Raspberry Pi, particularly the Ground pin!**
-
-<p align="center">
-    <img src="images/RPi_pin_layout.svg" alt="pin" width="200">
-    <figcaption align="center">Raspberry Pi pin layout</figcaption>
-</p>
-
-## Working with libraries
-
-You've seen the `import` statement in the last session, when we imported the newer `print()` function into Python2. We also used `import numpy as np` and later `np.pi` to access the value of the mathematical constant &pi;.
-
-The whole point is to avoid "re-inventing the wheel" by using existing software inside our programs. We do this by importing **software libraries**.
-
-Here's an example for how powerful this idea is. Imagine you want to retrieve the raw HTML content from a website. Instead of manually coding everything up from scratch, we can do the following:
-
-```python
-import requests
-r = requests.get('http://example.com') # Using everyone's favourite test domain!
-print(r.content)
-```
-
-A whopping 3 lines of code to traverse the network stack, perform a HTTP GET request, await a response, save it in a variable called `r` and display it!
-
-Things contained in libraries can be retrieved by using the dot operator `.`, such as in `requests.get`.
-
-## Using the gpiozero library
-
-The gpiozero library enables us to control the GPIO pins on our Pi. We start off with `import gpiozero`.
-
-### Switching an LED
-
-Connect an LED via a resistor to the Ground (GND) and GPIO pin 17 (GP17). Note that the shorter wire of the LED needs to connect to ground.
-
-<p align="center">
-    <img src="images/gpiozero_led.png" alt="Connecting an LED" width="800">
-    <figcaption align="center">Connecting an LED to the Pi</figcaption>
-</p>
-
-Run:
-
-```python
-import gpiozero
-import time
-
-red = gpiozero.LED(17)
-
-while True:
-    red.on()
-    time.sleep(1)
-    red.off()
-    time.sleep(1)
-```
-
-Note how we also imported the `time` library to allow the program to sleep for one second.
-
-### Dimming an LED
-
-Keep the same connection, and run the below code. Note how we use the PWMLED object to control the LED. PWM stands for [**P**ulse **W**idth **M**odulation](https://www.arduino.cc/en/uploads/Tutorial/pwm.gif), which rapidly blinks the LED and controls its brightness by switching it on and off for different amounts of times.
-
-```python
-from gpiozero import PWMLED
-from time import sleep
-
-led = PWMLED(17)
-
-while True:
-    led.value = 0  # off
-    sleep(1)
-    led.value = 0.5  # half brightness
-    sleep(1)
-    led.value = 1  # full brightness
-    sleep(1)
-```
-
-Note how in this case we have used the syntax `from <library> import <thing>` to import the `PWMLED` and `sleep` functions directly. This allowed us to skip repeatedly writing `time.sleep()` etc.
-
-### Using an ultrasonic distance sensor
-
-We couldn't get gpiozero's own `DistanceSensor` to give us any sensible distances! So we wrote a small library that you can use instead. Download the [ICAHSensor](https://raw.githubusercontent.com/till-h/ICAHHorizons_Y2PhysComp/master/session%201/ICAHSensor.py) and save it wherever you run the below program. It provides an `ICAHSensor` object.
-
-Wire the sensor as shown below. For this we need a breadboard, because the sensor's "Echo" returns a 5V signal, which is too much for the Pi's GPIO pins. To solve this, we have to build a small [voltage divider](https://en.wikipedia.org/wiki/Voltage_divider) to bring the signal from 5V down to 3.3V.
-
-<p align="center">
-    <img src="images/gpiozero_distance_sensor.png" alt="Connecting an ultrasonic distance sensor" width="800">
-    <figcaption align="center">Connecting a distance sensor to the Pi</figcaption>
-</p>
-
-Then execute the following code.
-
-```python
-from ICAHSensor import ICAHSensor
-from time import sleep
-
-sensor = ICAHSensor(trig=4, echo=18)
-
-while True:
-    print('Distance to nearest object is', sensor.get_distance(), 'm')
-    sleep(0.5)
-```
-
-You can stop the program by pressing <kbd>CTRL</kbd>+<kbd>C</kbd>.
-
-You can find many more ways of using gpiozero [here](http://gpiozero.readthedocs.io/en/stable/recipes.html).
-
-## Exercises
-
-Feel free to team up for these challenges. We only have a limited amount of each sensor.
-
-1. Write a program that flashes an LED at a frequency set by the user.
-
-1. Using gpiozero's [PWMLED object](http://gpiozero.readthedocs.io/en/stable/recipes.html#led-with-variable-brightness), write a program that repeatedly dims the LED from zero to full brightness, abruptly re-sets it to zero brightness and repeats. This is called a sawtooth wave.
-
-    <p align="center">
-        <img src="images/Sawtooth.gif" alt="pin" width="300">
-        <figcaption align="center">A sawtooth wave</figcaption>
-    </p>
-
-1. Write a program that blinks an LED if it detects an object closer than 20cm from the distance sensor.
-
-1. Write a program that accepts user input like "HELLOCANYOUHEARME" (all upper case and no whitespace), and translates this into an LED flashing the corresponding Morse Code.
-
-   You will need to translate letters into dots and dashes according to the Morse alphabet. It is best to use a Python dictionary to translate between letters and Morse symbols. This can be found [here](https://raw.githubusercontent.com/raspberrypilearning/morse-code-virtual-radio/master/code/morse_lookup.py), and the timing rules for International Morse Code [here](https://github.com/raspberrypilearning/morse-code-virtual-radio/blob/master/worksheet.md#decode-the-morse-as-you-go).
-
-1. Write a program that makes use of a line sensor (we have a few here today, so you will need to team up, depending on who is at this stage) and notifies the user whenever a black line is detected. Try to avoid repeatedly printing out whatever the line sensor sees. Instead, only notify the user when there is a change (no line &#8646; line). You will want to [wire it up correctly and familiarise yourself with the LineSensor interface](http://gpiozero.readthedocs.io/en/stable/api_input.html#line-sensor-trct5000) in gpiozero.
-
-## Conclusion
-
-We hope you enjoyed this brisk walk through our topic. If things still seem a bit disjointed, fear not &ndash; during the next session, we will start joining up the dots and you will build a physical contraption controlled by your Raspberry Pi!
-
-Just make sure to keep track of the number on your Pi, so you can resume your work where you left it today.
