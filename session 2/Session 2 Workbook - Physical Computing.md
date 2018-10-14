@@ -59,10 +59,14 @@ So on the left is the top side of the board where you would place your component
 
 As you can see you have vertical rows and horizontal rows of these metal clips. The vertical rows are used for common rails such as 5V and GND. Note that the vertical rows running on both sides are not connected, traditionally on simple circuits you would run a wire from each side bridging these to allow for rails on either side of the breadboard making it easier when building your circuits. The horizontal rows are for placing your components and allowing for multiple connections off one pin. Note the horizontal rows are not connected in the middle. This is so that you can place IC chips in the middle allowing for half the pins to be on either side and not be bridged across.
 
-<p align="middle">
+|<p align="center">
     <img src="images/breadboard_bridge.jpg" alt="Bridged rails" width="400">
+</p>|
+<p align="center">
     <img src="images/breadboard_ravine.jpg" alt="Breadboard DIP ravine" width="400" 
-    <figcaption align="center">Left: Bridging rails on either side of breadboard. Right: DIP ravine to place IC</figcaption>
+</p>|
+<p>    
+  <figcaption align="center">Left: Bridging rails on either side of breadboard. Right: DIP ravine to place IC</figcaption>
 </p>
 
 ## Working with files on the Pi
