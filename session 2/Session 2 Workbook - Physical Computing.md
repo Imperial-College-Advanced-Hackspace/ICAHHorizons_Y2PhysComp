@@ -46,22 +46,22 @@ An electronics breadboard are great units for prototyping or making quick tempor
 Some of you who have previously worked with electronics may have already seen a breadboard. They come in different sizes and configurations but generally are very similar. A breadboard will always have a DIP ravine in the centre of the breadboard. This is so that you can place IC chips in the middle with pins on either side. Also your breadboard may have a set of rails running along the top and bottom. Lets have a look at a small breadboard:
 
 <p align="center">
-    <img src="images/medium_breadboard.jpg" alt="Medium Breadboard" width="200">
+    <img src="images/medium_breadboard.jpg" alt="Medium Breadboard" width="400">
     <figcaption align="center">Medium sized breadboard with exposed pins</figcaption>
 </p>
 
 So on the left is the top side of the board where you would place your components and on the right is the bottom side of the board. Usually a breadboard has some backing on it so you cannot see the exposed metal components but we have peeled it off here so you can see the inner workings of the breadboard. Now the metal lines you can see are actually rows of pins as shown in the image below and each of these metal rows have clips at the top that are just under the plastic surface of the breadboard. When you plug in a wire or a leg of a component it is held in place by these metal clips.
 
 <p align="center">
-    <img src="images/breadboard_pins.JPG" alt="Breadboard metal pins" width="200">
+    <img src="images/breadboard_pins.JPG" alt="Breadboard metal pins" width="300">
     <figcaption align="center">Metal pins inside the breadboard</figcaption>
 </p>
 
 As you can see you have vertical rows and horizontal rows of these metal clips. The vertical rows are used for common rails such as 5V and GND. Note that the vertical rows running on both sides are not connected, traditionally on simple circuits you would run a wire from each side bridging these to allow for rails on either side of the breadboard making it easier when building your circuits. The horizontal rows are for placing your components and allowing for multiple connections off one pin. Note the horizontal rows are not connected in the middle. This is so that you can place IC chips in the middle allowing for half the pins to be on either side and not be bridged across.
 
 <p align="center">
-    <img src="images/breadboard_bridge.jpg" alt="Bridged rails" width="200">
-    <img src="images/breadboard_ravine.jpg" alt="Breadboard DIP ravine" width="200" 
+    <img src="images/breadboard_bridge.jpg" alt="Bridged rails" width="400">
+    <img src="images/breadboard_ravine.jpg" alt="Breadboard DIP ravine" width="400" 
     <figcaption align="center">Left: Bridging rails on either side of breadboard. Right: DIP ravine to place IC</figcaption>
 </p>
 
