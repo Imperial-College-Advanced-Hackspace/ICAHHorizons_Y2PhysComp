@@ -123,6 +123,14 @@ Connect an LED via a resistor to the Ground (GND) and GPIO pin 17 (GP17). Note t
     <figcaption align="center">Connecting an LED to the Pi</figcaption>
 </p>
 
+To keep everything a little organised lets create a directory where we can keep all our code:
+
+```
+cd /home/pi/
+mkdir Horizons
+cd Horizons
+```
+
 Run:
 
 ```python
@@ -244,13 +252,7 @@ sudo shutdown now
 
 Eventually the RPi will shutdown and then you can add the motor hat to the RPi. As you may have noticed the hat has connectors soldered on to it that have very long pins. This is so you can use jumper wires with the hat still connected. In fact if you wanted you could put multiple motor hats on top of each other. Now plug in the RPi and motor hat into the connector on the breadboard and power it all up again.
 
-To use this HAT you will need to [install the software](https://learn.adafruit.com/adafruit-dc-and-stepper-motor-hat-for-raspberry-pi/installing-software) with it. To do this you will need a usb wifi adapter. Note that the RPi already has wifi but as we have that setup as a Wireless Access Point we have to also use this wifi adapter for access to the internet. To install the software first SSH into the RPi, then we must create a directory to work in:
-
-```
-mkdir Horizons
-```
-
-Now we have created the directory lets move into the directory and download the relevant files:
+To use this HAT you will need to [install the software](https://learn.adafruit.com/adafruit-dc-and-stepper-motor-hat-for-raspberry-pi/installing-software) with it. To do this you will need a usb wifi adapter. Note that the RPi already has wifi but as we have that setup as a Wireless Access Point we have to also use this wifi adapter for access to the internet. To install the software first SSH into the RPi and download the relevant files:
 
 ```
 cd Horizons
