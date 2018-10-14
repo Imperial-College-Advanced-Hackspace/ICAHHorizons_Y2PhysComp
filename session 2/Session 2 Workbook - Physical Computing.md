@@ -39,9 +39,76 @@ A whopping 3 lines of code to traverse the network stack, perform a HTTP GET req
 
 Things contained in libraries can be retrieved by using the dot operator `.`, such as in `requests.get`.
 
+## Using a breadboard
+
+An electronics breadboard are great units for prototyping or making quick temporary circuits and they generally require no soldering. If you are not sure how a certain circuit will react, its best to prototype it out and usually this is done using a breadboard.
+
+Some of you who have previously worked with electronics may have already seen a breadboard. They come in different sizes and configurations but generally are very similar. A breadboard will always have a DIP ravine in the centre of the breadboard. This is so that you can place IC chips in the middle with pins on either side. Also your breadboard may have a set of rails running along the top and bottom. Lets have a look at a small breadboard:
+
+<p align="center">
+    <img src="images/medium_breadboard.jpg" alt="Medium Breadboard" width="200">
+    <figcaption align="center">Medium sized breadboard with exposed pins</figcaption>
+</p>
+
+So on the left is the top side of the board where you would place your components and on the right is the bottom side of the board. Usually a breadboard has some backing on it so you cannot see the exposed metal components but we have peeled it off here so you can see the inner workings of the breadboard. Now the metal lines you can see are actually rows of pins as shown in the image below and each of these metal rows have clips at the top that are just under the plastic surface of the breadboard. When you plug in a wire or a leg of a component it is held in place by these metal clips.
+
+<p align="center">
+    <img src="images/breadboard_pins.JPG" alt="Breadboard metal pins" width="200">
+    <figcaption align="center">Metal pins inside the breadboard</figcaption>
+</p>
+
+As you can see you have vertical rows and horizontal rows of these metal clips. The vertical rows are used for common rails such as 5V and GND. Note that the vertical rows running on both sides are not connected, traditionally on simple circuits you would run a wire from each side bridging these to allow for rails on either side of the breadboard making it easier when building your circuits. The horizontal rows are for placing your components and allowing for multiple connections off one pin. Note the horizontal rows are not connected in the middle. This is so that you can place IC chips in the middle allowing for half the pins to be on either side and not be bridged across.
+
+<p align="center">
+    <img src="images/breadboard_bridge.jpg" alt="Bridged rails" width="200">
+    <img src="images/breadboard_ravine.jpg" alt="Breadboard DIP ravine" width="200" 
+    <figcaption align="center">Left: Bridging rails on either side of breadboard. Right: DIP ravine to place IC</figcaption>
+</p>
+
+## Working with files on the Pi
+
+As you know we do not have a screen connected to the Raspberry Pi right now, which may confuse some of you for the next bit. Lets say we wanted to write some code and run it on the Pi. How would we do this? There are two ways we can use here, either we write the file on our own laptops in a text editor and copy it over, or we write it directly on the pi in the terminal. 
+
+### Copying a file over to the Raspberry Pi
+
+As some of you may find it is nicer to work within a known code editor that you are comfortable with. Once you have made this file on your laptop you can then copy this over to the Raspberry Pi and run it. So lets try this, create a simple text file called test_file.txt on the Desktop on your laptop.
+
+Now lets copy your file over to the Raspberry Pi. We can do this using SCP (Secure File Copy). Don't forget to connet to your RPi network again before trying the next steps.
+
+If you are using Mac/Linux then you do not require any extra software. Simply open a terminal and change directory to the Desktop and type:
+
+```scp test_file.txt pi@192.168.4.1:/home/pi/Desktop```
+
+If you are using Windows then you will need the program PuTTy which we mentioned in the previous lesson. You can download it [here](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html). Download the MSI('Windows Installer') and install it.
+
+Once you have installed PuTTy you can open the command prompt in Windows and change directory to the Desktop. Now use the pscp command to transfer the file.
+
+```pscp -scp test_file.txt pi@192.168.4.1:/home/pi/Desktop```
+
+Now if you ssh into your Raspberry Pi and list the files in the Desktop folder you will see your text file has been copied across!
+
+### Using a file editor on the Raspberry Pi
+
+If you wanted you could also create and edit a file directly on the RPi. Lets try this. First SSH into the RPi:
+
+```ssh pi@192.168.4.1```
+
+Then change directory to the Desktop folder. Now we are going to use one of the built in file editors for Linux systems called Nano. It is a very nice and easy terminal text editor. So to run it type:
+
+```nano test_file.txt```
+
+This will open a text editor in your terminal as shown below:
+
+<p align="center">
+    <img src="images/nano_terminal.PNG" alt="Nano in the terminal" width="800">
+    <figcaption align="center">Nano in the terminal</figcaption>
+</p>
+
+Note that within this text editor you cannot just click where you want to go but have to move there using the keypad on your keyboard. Then you can type whatever you need so lets try typing ```Hello World!``` at the top of the file and to exit you click <kbd>CTRL</kbd>+<kbd>X</kbd> on your keyboard. Click <kbd>y</kbd> and <kbd>Enter</kbd> to save it under the same file name.
+
 ## Using the gpiozero library
 
-The gpiozero library enables us to control the GPIO pins on our Pi. We start off with `import gpiozero`.
+The [gpiozero library](https://gpiozero.readthedocs.io/en/stable/) enables us to control the GPIO pins on our Pi. We start off with `import gpiozero`. The gpiozero library provides us with a lot functionality to interface with the GPIO pins and provides us with ready to use objects for LEDs, sensors and actuators. 
 
 ### Switching an LED
 
@@ -92,9 +159,9 @@ Note how in this case we have used the syntax `from <library> import <thing>` to
 
 ### Using an ultrasonic distance sensor
 
-We couldn't get gpiozero's own `DistanceSensor` to give us any sensible distances! So we wrote a small library that you can use instead. Download the [ICAHSensor](https://raw.githubusercontent.com/till-h/ICAHHorizons_Y2PhysComp/master/session%201/ICAHSensor.py) and save it wherever you run the below program. It provides an `ICAHSensor` object.
+Here we have the very common HC-SR04 ultrasonic sensor which is great for measuring distances. It has a range of 2cm to 400cm (but works best from around 10cm to 250cm). The sensors have a transmitter, a receiver and a control circuit. From the code you can simply call the ```get_distance()``` function and it will return the distance as a string. To get the distance a timer is started and the transmitter sends out a pulse, which bounces off a surface and then returns to the receiver. The time is taken again and we now know how long the pulse took to go and come back from the surface infront of the sensor. With some quick maths we can then calculate the distance of the object!
 
-Wire the sensor as shown below. For this we need a breadboard, because the sensor's "Echo" returns a 5V signal, which is too much for the Pi's GPIO pins. To solve this, we have to build a small [voltage divider](https://en.wikipedia.org/wiki/Voltage_divider) to bring the signal from 5V down to 3.3V.
+To get started wire the sensor as shown below. For this we need a breadboard, because the sensor's "Echo" returns a 5V signal, which is too much for the Pi's GPIO pins. To solve this, we have to build a small [voltage divider](https://en.wikipedia.org/wiki/Voltage_divider) to bring the signal from 5V down to 3.3V.
 
 <p align="center">
     <img src="images/gpiozero_distance_sensor.png" alt="Connecting an ultrasonic distance sensor" width="800">
@@ -104,10 +171,10 @@ Wire the sensor as shown below. For this we need a breadboard, because the senso
 Then execute the following code.
 
 ```python
-from ICAHSensor import ICAHSensor
+from gpiozero import DistanceSensor
 from time import sleep
 
-sensor = ICAHSensor(trig=4, echo=18)
+sensor = DsitanceSensor(echo=18, trigger=4, queue_len=10)
 
 while True:
     print('Distance to nearest object is', sensor.get_distance(), 'm')
@@ -142,7 +209,7 @@ Feel free to team up for these challenges. We only have a limited amount of each
 
 # May we introduce...
 
-So we've been busy this last week to assemble you a little vehicle. May we introduce the **ICAH-101 bot**. It is very heavily based on Imperial College Robotics Society's [Robotics 101 course](http://101.icrs.io/), which you should definitely read up on here if you want to find out more about how it all works "under the bonnet".
+So we've been busy this last week to assemble you a little vehicle. May we introduce the **ICAH-101 bot**. It is based on Imperial College Robotics Society's [Robotics 101 course](http://101.icrs.io/), which you can read up on here if you want to find out more. Note that for our robot we do not use a bare bones circuit like in that tutorial but instead we are using a motor shield which you will connect soon.
 
 <p align="center">
     <img src="images/bot.jpg" alt="ICAH-101 bot" width="800">
@@ -161,7 +228,7 @@ It has the following capabilities:
 
 * **Detecting brightness changes in the floor surface**, using 2 TCRT5000 **line sensors**. Why are they called line sensors? Because a natural application for reading brightness changes is to follow a black line on bright ground.
 
-We won't be focussed on the electronic setup of the robot in this session, but if you want to find out more about how we actually control the motors, do have a look at the [explanation in the 101 course](http://101.icrs.io/lesson-2) ("Motor Driver").
+We won't be focussed on the electronic setup of the robot in this session, but if you want to find out more about how we actually control the motors, do have a look at the [explanation in the 101 course](http://101.icrs.io/lesson-2) ("Motor Driver"). Note that we are using a different circuit here using a RPi Motor HAT but essentially the premise is the same. There is a H-Bridge on the HAT that is used to control the motors turning them clockwise or counterclockwise. However in our Motor HAT we also have a controller IC that we interface with it using I2C. I2C (Inter-integrated Circuit) protocol is a method of communication that allows for multiple slave devices (e.g. sensors) that all communicate to one master. It is only intended for short lengths and requires only 2 lines, the data signal and the clock signal. Unfortunately I2C is outside the scope of this lesson but you can find out more about [here](https://learn.sparkfun.com/tutorials/i2c).
 
 # Exercises
 
