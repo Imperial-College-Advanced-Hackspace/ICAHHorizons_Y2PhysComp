@@ -65,7 +65,7 @@ As you can see you have vertical rows and horizontal rows of these metal clips. 
 <p align="center">
     <img src="images/breadboard_ravine.jpg" alt="Breadboard DIP ravine" width="500"
 </p>
-<p>
+<p align="center">
   <figcaption align="center">Top: Bridging rails on either side of breadboard. Bottom: DIP ravine to place IC</figcaption>
 </p>
 
