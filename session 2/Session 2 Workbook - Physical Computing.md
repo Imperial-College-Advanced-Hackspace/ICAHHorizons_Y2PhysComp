@@ -234,6 +234,44 @@ It has the following capabilities:
 
 We won't be focussed on the electronic setup of the robot in this session, but if you want to find out more about how we actually control the motors, do have a look at the [explanation in the 101 course](http://101.icrs.io/lesson-2) ("Motor Driver"). Note that we are using a different circuit here using a RPi Motor HAT but essentially the premise is the same. There is a H-Bridge on the HAT that is used to control the motors turning them clockwise or counterclockwise. However in our Motor HAT we also have a controller IC that we interface with it using I2C. I2C (Inter-integrated Circuit) protocol is a method of communication that allows for multiple slave devices (e.g. sensors) that all communicate to one master. It is only intended for short lengths and requires only 2 lines, the data signal and the clock signal. Unfortunately I2C is outside the scope of this lesson but you can find out more about [here](https://learn.sparkfun.com/tutorials/i2c).
 
+# Connecting and setting up the Motor HAT
+
+First of all shutdown the Raspberry Pi safely. To do this SSH into the raspberry pi and in the terminal type:
+
+```
+sudo shutdown now
+```
+
+Eventually the RPi will shutdown and then you can add the motor hat to the RPi. As you may have noticed the hat has connectors soldered on to it that have very long pins. This is so you can use jumper wires with the hat still connected. In fact if you wanted you could put multiple motor hats on top of each other. Now plug in the RPi and motor hat into the connector on the breadboard and power it all up again.
+
+To use this HAT you will need to [install the software](https://learn.adafruit.com/adafruit-dc-and-stepper-motor-hat-for-raspberry-pi/installing-software) with it. To do this you will need a usb wifi adapter. Note that the RPi already has wifi but as we have that setup as a Wireless Access Point we have to also use this wifi adapter for access to the internet. To install the software first SSH into the RPi, then we must create a directory to work in:
+
+```
+mkdir Horizons
+```
+
+Now we have created the directory lets move into the directory and download the relevant files:
+
+```
+cd Horizons
+git clone https://github.com/adafruit/Adafruit-Motor-HAT-Python-Library.git
+cd Adafruit-Motor-HAT-Python-Library
+```
+Now we have downloaded the files we can install it easily using the setup command:
+
+```
+sudo python setup.py install
+```
+
+And thats it! Its installed now and we can start using the library. Try going to the examples folder and runnning the RobotTest.py example. **NOTE: This will move the robot so make sure you hold it up or ensure the robot does not run away from you!**
+
+```
+cd examples
+python RobotTest.py
+```
+
+To close the program type <kbd>CTRL</kbd>+<kbd>C</kbd>.
+
 # Exercises
 
 1. <p align="center"><img src="images/led.jpg" alt="LED layout" width="800"><figcaption align="center">The LED connection on the robot</figcaption></p>
@@ -241,37 +279,43 @@ We won't be focussed on the electronic setup of the robot in this session, but i
    Have a look at your robot and [the Raspberry Pi pin layout](http://gpiozero.readthedocs.io/en/stable/_images/pin_layout.svg) (the bottom is where the USB ports are, and it is also on your desktop background). Find out which pin the LED is connected to and get it to blink. If you're stuck, look back at the first session's workbook!
 
 2. Driving the robot around.
- gpiozero makes it very easy to drive the robot around. (Remember the reason from last session why we use software libraries in the first place!) Look at the below sample code:
-   
-   ```python
-   from gpiozero import Robot
-   
-   leftPins = (21, 16)
-   rightPins = (12, 1)
-   
-   my_robot = Robot(left=leftPins, right=rightPins)
-   
-   # move around
-   my_robot.forward()
-   sleep(2)
-   my_robot.backward()
-   sleep(2)
-   my_robot.left()
-   sleep(1)
-   my_robot.forward()
-   sleep(2)
-   my_robot.right()
-   sleep(1)
-   my_robot.backward()
-   ```
+ Now to drive the robot around we will use one of the example classes created by Adafruit for the motor HAT. To do this copy the file Robot.py into our Horizons folder. (Try pressing tab to auto-complete the names).
 
-   The above creates an instance of gpiozero's `Robot` object, called `my_robot`. As we create it, we tell it the correct GPIO pins for controlling the left and the right motor.
+ ```
+ cd /home/pi/Horizons/
+ cp Adafruit-Motor-HAT-Python-Library/examples/Robot.py .
+ ```
 
-   Armed with this knowledge, `my_robot` knows exactly what signals to put out onto the pins if it is asked to move the robot forward, backward, left or right. The great thing is that we can leave the nitty-gritty of _how_ to move in either direction to the internal workings of the gpiozero library. It just presents us with handy shortcut commands called left(), right(), forward() and backward().
+ Now lets create a file that lets us import this Robot class and drive the robot around:
 
-   To do a motion at less than full speed, you can give it a speed parameter. For example `my_robot.forward(0.5)` moves the robot forward at half of the full speed.
+ ```python
+ import time
+ import Robot
 
-   You can find all the commands that you can send to the Robot object [here](http://gpiozero.readthedocs.io/en/stable/api_boards.html?highlight=robot#robot). Note that there is a handy `stop()` function that saves you from writing things like `my_robot.forward(0)`.
+ LEFT_TRIM = 0
+ RIGHT_TRIM = 0
+
+ my_robot = Robot.Robot(left_trim=LEFT_TRIM, right_trim=RIGHT_TRIM)
+
+ my_robot.forward(150, 1.0)   # Move forward at speed 150 for 1 second. Speed is a value between 0 and 255
+ my_robot.left(200, 0.5) # Spin left at speed 200 for 0.5 seconds.
+
+ # Spin in place slowly for a few seconds.
+ my_robot.right(100)  # No time is specified so the robot will start spinning forever.
+ time.sleep(2.0)   # Pause for a few seconds while the robot spins (you could do other processing here though!).
+
+ my_robot.backward(100,2)
+
+ my_robot.stop()      # Stop the robot from moving.
+ ```
+
+   The above creates an instance of adafruit's `Robot` object, called `my_robot`. As we create it, we tell it the correct GPIO pins for controlling the left and the right motor.
+
+   Armed with this knowledge, `my_robot` knows exactly what signals to put out onto the pins if it is asked to move the robot forward, backward, left or right. The great thing is that we can leave the nitty-gritty of _how_ to move in either direction to the internal workings of the adafruit library. It just presents us with handy shortcut commands called left(), right(), forward() and backward().
+
+   To do a motion at less than full speed, you can give it a speed parameter. For example `my_robot.forward(122)` moves the robot forward at half of the full speed.
+
+   You can find all the commands that you can send to the Robot object in the Robot.py file we copied earlier. Note that there is a handy `stop()` function that saves you from writing things like `my_robot.forward(0)`.
 
 3. Moving out of the way when there is an obstacle in front of the robot.
  In this exercise, we stop the robot when there is an obstacle in front of it, using the ultrasonic distance sensor. Optionally, you can set it on a new course until it detects another obstacle, thus going on until its battery is depleted.
