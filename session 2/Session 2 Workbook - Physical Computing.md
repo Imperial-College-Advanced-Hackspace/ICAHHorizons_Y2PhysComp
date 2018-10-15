@@ -189,7 +189,7 @@ from time import sleep
 sensor = DsitanceSensor(echo=18, trigger=4, queue_len=10)
 
 while True:
-    print('Distance to nearest object is', sensor.get_distance(), 'm')
+    print('Distance to nearest object is', sensor.distance, 'm')
     sleep(0.5)
 ```
 
