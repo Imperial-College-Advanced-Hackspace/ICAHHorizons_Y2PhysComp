@@ -224,7 +224,7 @@ Feel free to team up for these challenges. We only have a limited amount of each
 So we've been busy this last week to assemble you a little vehicle. May we introduce the **ICAH-101 bot**. It is based on Imperial College Robotics Society's [Robotics 101 course](http://101.icrs.io/), which you can read up on here if you want to find out more. Note that for our robot we do not use a bare bones circuit like in that tutorial but instead we are using a motor shield which you will connect soon.
 
 <p align="center">
-    <img src="images/bot.jpg" alt="ICAH-101 bot" width="800">
+    <img src="images/bot_motor_hat.jpg" alt="ICAH-101 bot" width="800">
     <figcaption align="center">The ICAH-101 bot</figcaption>
 </p>
 
@@ -279,8 +279,6 @@ python RobotTest.py
 To close the program type <kbd>CTRL</kbd>+<kbd>C</kbd>.
 
 # Exercises
-
-<p align="center"><img src="images/led.jpg" alt="LED layout" width="800"><figcaption align="center">The LED connection on the robot</figcaption></p>
 
 1. Have a look at your robot and [the Raspberry Pi pin layout](http://gpiozero.readthedocs.io/en/stable/_images/pin_layout.svg) (the bottom is where the USB ports are, and it is also on your desktop background). Connect an LED into the breadboard and to one of the pins on the pi and get it to blink.
 
