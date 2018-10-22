@@ -240,7 +240,7 @@ It has the following capabilities:
 
 * **Detecting brightness changes in the floor surface**, using 2 TCRT5000 **line sensors**. Why are they called line sensors? Because a natural application for reading brightness changes is to follow a black line on bright ground.
 
-We won't be focussed on the electronic setup of the robot in this session, but if you want to find out more about how we actually control the motors, do have a look at the [explanation in the 101 course](http://101.icrs.io/lesson-2) ("Motor Driver"). Note that we are using a different circuit here using a RPi Motor HAT but essentially the premise is the same. There is a H-Bridge on the HAT that is used to control the motors turning them clockwise or counterclockwise. However in our Motor HAT we also have a controller IC that we interface with it using I2C. I2C (Inter-integrated Circuit) protocol is a method of communication that allows for multiple slave devices (e.g. sensors) that all communicate to one master. It is only intended for short lengths and requires only 2 lines, the data signal and the clock signal. Unfortunately I2C is outside the scope of this lesson but you can find out more about [here](https://learn.sparkfun.com/tutorials/i2c).
+We won't be focussed on the electronic setup of the robot in this session, but if you want to find out more about how we actually control the motors, do have a look at the [explanation in the 101 course](http://101.icrs.io/lesson-2) ("Motor Driver"). Note that we are using a different circuit here using a RPi Motor HAT but essentially the premise is the same. There is a H-Bridge on the HAT that is used to control the motors turning them clockwise or counterclockwise. However in our Motor HAT we also have a controller IC that we interface with it using I2C. I2C (Inter-integrated Circuit) protocol is a method of communication that allows for multiple slave devices (e.g. sensors) that all communicate to one master. It is only intended for short lengths and requires only 2 lines, the data signal and the clock signal. Unfortunately I2C is outside the scope of this lesson but you can find out more about it [here](https://learn.sparkfun.com/tutorials/i2c).
 
 # Connecting and setting up the Motor HAT
 
@@ -250,7 +250,11 @@ First of all shutdown the Raspberry Pi safely. To do this SSH into the raspberry
 sudo shutdown now
 ```
 
-Eventually the RPi will shutdown and then you can add the motor hat to the RPi. As you may have noticed the hat has connectors soldered on to it that have very long pins. This is so you can use jumper wires with the hat still connected. In fact if you wanted you could put multiple motor hats on top of each other. Now plug in the RPi and motor hat into the connector on the breadboard and power it all up again.
+Eventually the RPi will shutdown and then you can add the motor hat to the RPi. As you may have noticed the hat has connectors soldered on to it that have very long pins. This is so you can use jumper wires with the hat still connected. In fact if you wanted you could put multiple motor hats on top of each other. Now plug in the RPi and motor hat into the connector on the breadboard.
+
+Now connect the motor wires, one motor to the M1 terminals and one motor to the M2 temrinals. Finally we need to connect the power for the motors. This is on the top left corner of the shield. Connect one black wire from the negative terminal to the GND rail on the breadboard and one red wire from the positive terminal on the shield to the 5V rail on the breadboard. This can all be seen in the image below. Now turn your pi on.
+
+<p align="center"><img src="images/pi_motorshield_wiring.jpg" alt="Motor Shield Wiring" width="800"><figcaption align="center">how to wire up the motor shield</figcaption></p>
 
 To use this HAT you will need to [install the software](https://learn.adafruit.com/adafruit-dc-and-stepper-motor-hat-for-raspberry-pi/installing-software) with it. To do this you will need a usb wifi adapter. Note that the RPi already has wifi but as we have that setup as a Wireless Access Point we have to also use this wifi adapter for access to the internet. To install the software first SSH into the RPi and download the relevant files:
 
@@ -276,9 +280,9 @@ To close the program type <kbd>CTRL</kbd>+<kbd>C</kbd>.
 
 # Exercises
 
-1. <p align="center"><img src="images/led.jpg" alt="LED layout" width="800"><figcaption align="center">The LED connection on the robot</figcaption></p>
+<p align="center"><img src="images/led.jpg" alt="LED layout" width="800"><figcaption align="center">The LED connection on the robot</figcaption></p>
 
-   Have a look at your robot and [the Raspberry Pi pin layout](http://gpiozero.readthedocs.io/en/stable/_images/pin_layout.svg) (the bottom is where the USB ports are, and it is also on your desktop background). Find out which pin the LED is connected to and get it to blink. If you're stuck, look back at the first session's workbook!
+1. Have a look at your robot and [the Raspberry Pi pin layout](http://gpiozero.readthedocs.io/en/stable/_images/pin_layout.svg) (the bottom is where the USB ports are, and it is also on your desktop background). Connect an LED into the breadboard and to one of the pins on the pi and get it to blink.
 
 2. Driving the robot around.
  Now to drive the robot around we will use one of the example classes created by Adafruit for the motor HAT. To do this copy the file Robot.py into our Horizons folder. (Try pressing tab to auto-complete the names).
@@ -323,9 +327,8 @@ To close the program type <kbd>CTRL</kbd>+<kbd>C</kbd>.
  In this exercise, we stop the robot when there is an obstacle in front of it, using the ultrasonic distance sensor. Optionally, you can set it on a new course until it detects another obstacle, thus going on until its battery is depleted.
 
    Remember [the distance sensing code from last time](https://github.com/till-h/ICAHHorizons_Y2PhysComp/blob/master/session%201/Session%201%20Workbook%20-%20Physical%20Computing.md#using-an-ultrasonic-distance-sensor)? You will first need to wire up the sensor, including the voltage divider, as per the last session's instructions. We will once more give you a "large" and a "small" resistor to build the voltage divider.  
-   We have a bigger breadboard this time to set things up on, and the front part of it is left empty for you to set up the wires for the distance sensor.
 
-   You will be using the pins <TODO> for the Trig signal, and <TODO> for the Echo signal. A sample flowchart for the robot control is shown below - but do try out your own ideas!
+   A sample flowchart for the robot control is shown below - but do try out your own ideas!
 
    <p align="center">
       <img src="images/obstacle_flowchart.png" alt="Obstacle avoidance" width="600">
@@ -355,7 +358,7 @@ To close the program type <kbd>CTRL</kbd>+<kbd>C</kbd>.
    * Connect the sensor's GND to a Ground pin on the Pi.
    * Connect the sensor's OUT to a free GPIO pin on the Pi.
 
-   Again, feel free to change this to a more interesting behaviour, if you have time.
+   Again, feel free to change the code to a more interesting behaviour, if you have time.
 
 5. Driving the robot around in a black square.
 Finally, you can use the previous exercise to drive the robot around within a box. Can you make it go as closely as possible around the inside of the perimeter? I.e., constantly keep probing to one side?
