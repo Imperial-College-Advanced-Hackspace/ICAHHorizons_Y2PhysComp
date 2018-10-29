@@ -25,11 +25,11 @@ You will now complete the missing line sensor(s) on your robot, wire them up, wr
 
 As we told you during the Introductory Session, you will be expected to write up this work in a successes and failures document.
 
-So throughout this session, you should think about what you want to include in there &emdash;
+So throughout this session, you should think about what you want to include in there;
 
 * You only have tonight to take pictures of the robot
 * Exchange contact details with your team mates in case you need to check back over anything after the class
-* The deadline for submitting the documents is **6 November 2017**. Please note that you will not pass this course if you fail to submit this write-up.
+* The deadline for submitting the documents is **5 November 2018 23:59**. Please note that you will not pass this course if you fail to submit this write-up.
 
 # Exercises
 
