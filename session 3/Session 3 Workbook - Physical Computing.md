@@ -46,4 +46,3 @@ So throughout this session, you should think about what you want to include in t
 
 1. And how about a gentle slow-down as the obstacle comes nearer? (Rather than abruptly stopping when it gets closer than some cut-off?)
 
-1. Finally, we may just have a special decoding challenge waiting for you at the end of the track! Speak to one of us to start working on this.
