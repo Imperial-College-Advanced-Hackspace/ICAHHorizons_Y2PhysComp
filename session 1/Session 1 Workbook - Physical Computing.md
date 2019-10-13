@@ -304,7 +304,7 @@ An electronics breadboard are great units for prototyping or making quick tempor
 Some of you who have previously worked with electronics may have already seen a breadboard. They come in different sizes and configurations but generally are very similar. A breadboard will always have a DIP ravine in the centre of the breadboard. This is so that you can place IC chips in the middle with pins on either side. Also your breadboard may have a set of rails running along the top and bottom. Lets have a look at a small breadboard:
 
 <p align="center">
-    <img src="images/medium_breadboard.jpg" alt="Medium Breadboard" width="400">
+    <img src="images/medium_breadboard.jpg" alt="Medium Breadboard" width="600">
     <figcaption align="center">Medium sized breadboard with exposed pins</figcaption>
 </p>
 
