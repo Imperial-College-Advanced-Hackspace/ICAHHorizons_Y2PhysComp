@@ -327,6 +327,18 @@ As you can see you have vertical rows and horizontal rows of these metal clips. 
   <figcaption align="center">Top: Bridging rails on either side of breadboard. Bottom: DIP ravine to place IC</figcaption>
 </p>
 
+<p align="center">
+    <img src="images/verticalpower.png" alt="Vertical power rails" width="500"
+</p>
+<p align="center">
+    <img src="images/horizontalrows.png" alt="Horizontal breadboard connections" width="500"
+</p>
+<p align="center">
+    <img src="images/horizontalwithIC.jpg" alt="Breadboard with IC DIP ravine" width="500"
+</p>
+
+
+
 ### Blinking an LED
 
 Connect an LED via a resistor to the Ground (GND) and GPIO pin 17 (GP17). Note that the shorter wire of the LED needs to connect to ground.
