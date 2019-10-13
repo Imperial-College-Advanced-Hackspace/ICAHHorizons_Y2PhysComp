@@ -334,7 +334,7 @@ As you can see you have vertical rows and horizontal rows of these metal clips. 
     <img src="images/horizontalrows.png" alt="Horizontal breadboard connections" width="500"
 </p>
 <p align="center">
-    <img src="images/horizontalwithIC.jpg" alt="Breadboard with IC DIP ravine" width="500"
+    <img src="images/horizontalwithIC.png" alt="Breadboard with IC DIP ravine" width="500"
 </p>
 
 
