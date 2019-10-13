@@ -1,7 +1,7 @@
 # Session 1 Workbook - Physical Computing
 
 <p align="center">
-    <img src="images/ICAHLOGO.jpg" alt="ICAHLOGO" width="800">
+    <img src="images/ICAHLOGO.jpg" alt="ICAHLOGO" width="600">
 </p>
 
 ## Course Structure
