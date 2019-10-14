@@ -1,6 +1,6 @@
 # Session 1 Workbook - Physical Computing
 
-Find me at https://bit.ly/2oFI6Jj
+## Find me at https://bit.ly/2oFI6Jj
 
 <p align="center">
     <img src="images/ICAHLOGO.jpg" alt="ICAHLOGO" width="600">
