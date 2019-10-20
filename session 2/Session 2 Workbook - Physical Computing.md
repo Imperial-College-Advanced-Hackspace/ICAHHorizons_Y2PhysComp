@@ -21,24 +21,6 @@ Ultimately, we want you to control a physical contraption with your Raspberry Pi
     <figcaption align="center">Raspberry Pi pin layout</figcaption>
 </p>
 
-## Working with libraries
-
-You've seen the `import` statement in the last session, where we used `import numpy as np` and later `np.pi` to access the value of the mathematical constant &pi;.
-
-The whole point is to avoid "re-inventing the wheel" by using existing software inside our programs. We do this by importing **software libraries**.
-
-Here's an example for how powerful this idea is. Imagine you want to retrieve the raw HTML content from a website. Instead of manually coding everything up from scratch, we can do the following:
-
-```python
-import requests
-r = requests.get('http://example.com') # Using everyone's favourite test domain!
-print(r.content)
-```
-
-A whopping 3 lines of code to traverse the network stack, perform a HTTP GET request, await a response, save it in a variable called `r` and display it!
-
-Things contained in libraries can be retrieved by using the dot operator `.`, such as in `requests.get`.
-
 ## Using a breadboard
 
 An electronics breadboard are great units for prototyping or making quick temporary circuits and they generally require no soldering. If you are not sure how a certain circuit will react, its best to prototype it out and usually this is done using a breadboard.
@@ -46,7 +28,7 @@ An electronics breadboard are great units for prototyping or making quick tempor
 Some of you who have previously worked with electronics may have already seen a breadboard. They come in different sizes and configurations but generally are very similar. A breadboard will always have a DIP ravine in the centre of the breadboard. This is so that you can place IC chips in the middle with pins on either side. Also your breadboard may have a set of rails running along the top and bottom. Lets have a look at a small breadboard:
 
 <p align="center">
-    <img src="images/medium_breadboard.jpg" alt="Medium Breadboard" width="400">
+    <img src="images/medium_breadboard.jpg" alt="Medium Breadboard" width="600">
     <figcaption align="center">Medium sized breadboard with exposed pins</figcaption>
 </p>
 
@@ -69,25 +51,35 @@ As you can see you have vertical rows and horizontal rows of these metal clips. 
   <figcaption align="center">Top: Bridging rails on either side of breadboard. Bottom: DIP ravine to place IC</figcaption>
 </p>
 
+<p align="center">
+    <img src="images/verticalpower.png" alt="Vertical power rails" width="500"
+</p>
+<p align="center">
+    <img src="images/horizontalrows.png" alt="Horizontal breadboard connections" width="500"
+</p>
+<p align="center">
+    <img src="images/horizontalwithIC.png" alt="Breadboard with IC DIP ravine" width="500"
+</p>
+
 ## Working with files on the Pi
 
 As you know we do not have a screen connected to the Raspberry Pi right now, which may confuse some of you for the next bit. Lets say we wanted to write some code and run it on the Pi. How would we do this? There are two ways we can use here, either we write the file on our own laptops in a text editor and copy it over, or we write it directly on the pi in the terminal. 
 
 ### Copying a file over to the Raspberry Pi
 
-As some of you may find it is nicer to work within a known code editor that you are comfortable with. Once you have made this file on your laptop you can then copy this over to the Raspberry Pi and run it. So lets try this, create a simple text file called test_file.txt on the Desktop on your laptop.
+As some of you may find it is nicer to work within a known code editor that you are comfortable with. Once you have made this file on your laptop you can then copy this over to the Raspberry Pi and run it. So lets try this, create a simple text file called blinky.py on the Desktop on your laptop.
 
 Now lets copy your file over to the Raspberry Pi. We can do this using SCP (Secure File Copy). Don't forget to connet to your RPi network again before trying the next steps.
 
 If you are using Mac/Linux then you do not require any extra software. Simply open a terminal and change directory to the Desktop and type:
 
-```scp test_file.txt pi@192.168.4.1:/home/pi/Desktop```
+```scp blinky.py pi@192.168.4.2:/home/pi/horizons```
 
 If you are using Windows then you will need the program PuTTy which we mentioned in the previous lesson. You can download it [here](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html). Download the MSI('Windows Installer') and install it.
 
 Once you have installed PuTTy you can open the command prompt in Windows and change directory to the Desktop. Now use the pscp command to transfer the file.
 
-```pscp -scp test_file.txt pi@192.168.4.1:/home/pi/Desktop```
+```pscp -scp blinky.py pi@192.168.4.2:/home/pi/horizons```
 
 Now if you ssh into your Raspberry Pi and list the files in the Desktop folder you will see your text file has been copied across!
 
@@ -95,11 +87,17 @@ Now if you ssh into your Raspberry Pi and list the files in the Desktop folder y
 
 If you wanted you could also create and edit a file directly on the RPi. Lets try this. First SSH into the RPi:
 
-```ssh pi@192.168.4.1```
+```ssh pi@192.168.4.2```
 
-Then change directory to the Desktop folder. Now we are going to use one of the built in file editors for Linux systems called Nano. It is a very nice and easy terminal text editor. So to run it type:
+Then change directory to the horizons folder. 
 
-```nano test_file.txt```
+```
+cd /home/pi/horizons
+```
+
+Now we are going to use one of the built in file editors for Linux systems called Nano. It is a very nice and easy terminal text editor. So to run it type:
+
+```nano blinky.py```
 
 This will open a text editor in your terminal as shown below:
 
@@ -109,6 +107,8 @@ This will open a text editor in your terminal as shown below:
 </p>
 
 Note that within this text editor you cannot just click where you want to go but have to move there using the keypad on your keyboard. Then you can type whatever you need so lets try typing ```Hello World!``` at the top of the file and to exit you click <kbd>CTRL</kbd>+<kbd>X</kbd> on your keyboard. Click <kbd>y</kbd> and <kbd>Enter</kbd> to save it under the same file name.
+
+Now we know what a Raspberry Pi is and how to copy files to it.
 
 ## Using the gpiozero library
 
@@ -256,20 +256,29 @@ Now connect the motor wires, one motor to the M1 terminals and one motor to the 
 
 <p align="center"><img src="images/pi_motorshield_wiring.jpg" alt="Motor Shield Wiring" width="800"><figcaption align="center">how to wire up the motor shield</figcaption></p>
 
-To use this HAT you will need to [install the software](https://learn.adafruit.com/adafruit-dc-and-stepper-motor-hat-for-raspberry-pi/installing-software) with it. To do this you will need a usb wifi adapter. Note that the RPi already has wifi but as we have that setup as a Wireless Access Point we have to also use this wifi adapter for access to the internet. To install the software first SSH into the RPi and download the relevant files:
+To use this HAT you will need to [install the software](https://github.com/adafruit/Adafruit-Motor-HAT-Python-Library.git) with it. To do this you will need to download the library on your laptop and then copy the folder over. To do this go to the below link and click on clone or download -> download ZIP.
 
-```
-cd Horizons
-git clone https://github.com/adafruit/Adafruit-Motor-HAT-Python-Library.git
-cd Adafruit-Motor-HAT-Python-Library
-```
-Now we have downloaded the files we can install it easily using the setup command:
+**[ADAFRUIT LIBRARY](https://github.com/adafruit/Adafruit-Motor-HAT-Python-Library.git)**
 
+Now we have downloaded the files we can copy them over to the Raspberry Pi:
+
+1. Open a command prompt window (Windows) or Terminal (Linux/MAC OS).
+2. Change to the directory where you downloaded the library zip file.
+3. Copy the file accross using the following command:
+```
+pscp -scp -r <name_of_zip_file> pi@192.168.4.2:/home/pi/horizons
+```
+4. Open PuTTy and SSH into the Raspberry Pi.
+5. Go to the horizons directory:
+```
+cd /home/pi/horizons/
+```
+6. Install the library usingthe setup command:
 ```
 sudo python setup.py install
 ```
 
-And thats it! Its installed now and we can start using the library. Try going to the examples folder and runnning the RobotTest.py example. **NOTE: This will move the robot so make sure you hold it up or ensure the robot does not run away from you!**
+And thats it! Its installed now and we can start using the library. Try going to the examples folder and running the RobotTest.py example. **NOTE: This will move the robot so make sure you hold it up or ensure the robot does not run away from you!**
 
 ```
 cd examples
