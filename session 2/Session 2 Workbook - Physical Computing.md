@@ -256,7 +256,7 @@ Now connect the motor wires, one motor to the M1 terminals and one motor to the 
 
 <p align="center"><img src="images/pi_motorshield_wiring.jpg" alt="Motor Shield Wiring" width="800"><figcaption align="center">how to wire up the motor shield</figcaption></p>
 
-To use this HAT you will need to [install the software](https://github.com/adafruit/Adafruit-Motor-HAT-Python-Library.git) with it. To do this you will need to download the library on your laptop and then copy the folder over. To do this go to the below link and click on clone or download -> download ZIP.
+To use this HAT you will need to [install the software](https://github.com/adafruit/Adafruit-Motor-HAT-Python-Library.git) with it and [set up the I2C line](https://learn.adafruit.com/adafruits-raspberry-pi-lesson-4-gpio-setup/configuring-i2c) on the Raspberry Pi. To do this you will need to download the library on your laptop and then copy the folder over. To do this go to the below link and click on clone or download -> download ZIP.
 
 **[ADAFRUIT LIBRARY](https://github.com/adafruit/Adafruit-Motor-HAT-Python-Library.git)**
 
@@ -277,6 +277,7 @@ cd /home/pi/horizons/
 ```
 sudo python setup.py install
 ```
+7. Follow the [instructions](https://learn.adafruit.com/adafruits-raspberry-pi-lesson-4-gpio-setup/configuring-i2c) to get I2C setup.
 
 And thats it! Its installed now and we can start using the library. Try going to the examples folder and running the RobotTest.py example. **NOTE: This will move the robot so make sure you hold it up or ensure the robot does not run away from you!**
 
