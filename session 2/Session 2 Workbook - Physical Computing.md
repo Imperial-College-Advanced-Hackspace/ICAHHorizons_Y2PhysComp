@@ -263,17 +263,17 @@ To use this HAT you will need to [install the software](https://github.com/adafr
 Now we have downloaded the files we can copy them over to the Raspberry Pi:
 
 1. Open a command prompt window (Windows) or Terminal (Linux/MAC OS).
-2. Change to the directory where you downloaded the library zip file.
-3. Copy the file accross using the following command:
+1. Change to the directory where you downloaded the library zip file.
+1. Copy the file accross using the following command:
 ```
 pscp -scp -r <name_of_zip_file> pi@192.168.4.2:/home/pi/horizons
 ```
-4. Open PuTTy and SSH into the Raspberry Pi.
-5. Go to the horizons directory:
+1. Open PuTTy and SSH into the Raspberry Pi.
+1. Go to the horizons directory:
 ```
 cd /home/pi/horizons/
 ```
-6. Install the library usingthe setup command:
+1. Install the library usingthe setup command:
 ```
 sudo python setup.py install
 ```
